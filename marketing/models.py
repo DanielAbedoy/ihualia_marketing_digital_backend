@@ -1,6 +1,18 @@
 from django.db import models
 import json
 
+
+#Modelo del Cliente(Empresa)
+class Cliente(models.Model):
+    
+    nombre = models.CharField(max_lenght=100)
+    razon_social = models.CharFiled(max_lenght=100)
+    direccion = models.CharFuield(max_lenght=250)
+    telefono = models.CharField(max_length=30)
+    dominio = models.CharField(max_lenght=100)
+    giro = model.CharField(max_length=150)
+
+
 ## Modelo del Usuario
 class Usuario(models.Model):
     
