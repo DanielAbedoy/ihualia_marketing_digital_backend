@@ -13,9 +13,9 @@ from .views import (
 router = DefaultRouter()
 router.register('contacto', ContactoViewSet, basename='contacto')
 router.register('grupo', GrupoViewSet, basename='grupo')
-router.register('grupo-contacto', GrupoContactoViewSet, basename='grupocontacto')
-router.register('campo-extra', CampoExtraViewSet, basename='campoextra')
-router.register('campo-extra-grupo', CampoExtra_GrupoViewSet, basename='campoextragrupo')
-router.register('campo-contacto', Campo_ContactoViewSet, basename='campocontacto')
+router.register('grupo-contacto', GrupoContactoViewSet, basename='grupo_contacto')
+router.register('campo-extra', CampoExtraViewSet, basename='campo_extra')
+router.register('campo-extra-grupo', CampoExtra_GrupoViewSet, basename='campoextra_grupo')
+router.register('campo-contacto', Campo_ContactoViewSet, basename='campo_contacto')
 urlpatterns = router.urls
 

@@ -8,7 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('marketing.api.urls')),
     path('api/', include('contacto.api.urls')),
-
     path('api/post/grupo/', GrupoPostView.as_view()),
     path('api/post/grupo-contacto/', GrupoContacto_PostView.as_view()),
     path('api/post/campo-extra-grupo/', CampoExtra_Grupo_PostView.as_view()),

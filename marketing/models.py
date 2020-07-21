@@ -5,30 +5,29 @@ import json
 #Modelo del Cliente(Empresa)
 class Cliente(models.Model):
     
-    nombre = models.CharField(max_lenght=100)
-    razon_social = models.CharFiled(max_lenght=100)
-    direccion = models.CharFuield(max_lenght=250)
+    id_cliente = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100)
+    razon_social = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=250)
     telefono = models.CharField(max_length=30)
-    dominio = models.CharField(max_lenght=100)
-    giro = model.CharField(max_length=150)
+    dominio = models.CharField(max_length=100)
+    giro = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.nombre + " - " + self.razon_social + " - " + self.dominio
 
 
 ## Modelo del Usuario
 class Usuario(models.Model):
     
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE,related_name="cliente_usuario")
     correo = models.EmailField(max_length=100, primary_key=True)
     usuario = models.CharField(max_length=30)
     password = models.CharField(max_length=20)
     nombre = models.CharField(max_length=100)
-    razon_social = models.CharField(max_length=100)
-    direccion = models.CharField(max_length=250)
-    telefono = models.CharField(max_length=30)
-    dominio = models.URLField(max_length=100)
-    giro = models.CharField(max_length=150)
+    tipo = models.CharField(max_length=30) # Administrador - Colaborador
+    estatus = models.CharField(max_length=30)
     imagen = models.CharField(max_length=100)
-    
-    creado = models.DateTimeField(auto_now_add=True)
-    editado = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         objeto = {"correo": self.correo,"usuario":self.usuario , "nombre": self.nombre}
@@ -38,15 +37,23 @@ class Usuario(models.Model):
 ##Modelo de lacuenta
 class Cuenta(models.Model):
 
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="cuenta_de_cliente")
     nombre = models.CharField(max_length=200)
-    tipo = models.CharField(max_length=200)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="usuario_de_cuenta")
+    estatus = models.CharField(max_length=30)
 
     class Meta:
-        ordering = ['usuario']
+        ordering = ['id_cliente']
 
     def __str__(self):
-        objeto = {"nombre": self.nombre, "tipo": self.tipo}
+        objeto = {"nombre": self.nombre, "estatus":self.estatus}
         return json.dumps(objeto)
 
 
+class Usuario_Cuenta(models.Model):
+
+    id_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="id_usuario")
+    id_cuenta = models.ForeignKey(Cuenta, on_delete=models.CASCADE, related_name="id_cuenta")
+    tipo = models.CharField(max_length=30)  # Responsable - Apoyo
+
+    def __str__(self):
+        return self.id_usuario + " - " + self.id_cuenta + " - " + self.tipo
