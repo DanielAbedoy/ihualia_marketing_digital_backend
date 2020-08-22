@@ -7,7 +7,7 @@ from .views import (
     GrupoContactoViewSet,
     CampoExtraViewSet,
     CampoExtra_GrupoViewSet,
-    Campo_ContactoViewSet
+    Campo_ContactoViewSet,
 )
 
 router = DefaultRouter()
