@@ -17,16 +17,18 @@ class Evento(models.Model):
   nombre_imagen = models.CharField(max_length=500)
   resumen = models.CharField(max_length=1000)
 
+  estatus = models.CharField(max_length = 50)
+
   def __str__(self):
     return str(self.id_cuenta) + " - " + self.nombre
 
 
 class Tags_Evento(models.Model):
-  id_evento = models.ForeignKey(Evento, related_name="tags_evento",on_delete=models.CASCADE)
+  id_evento = models.ForeignKey(Evento, related_name="tags_evento", on_delete=models.CASCADE)
   palabra = models.CharField(max_length=30)
 
   def __str__(self):
-    return self.id_evento + " - " + self.plabra
+    return self.id_evento + " - " + self.palabra
     
 class Lugar_Evento(models.Model):
   

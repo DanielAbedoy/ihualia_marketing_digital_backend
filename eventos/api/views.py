@@ -11,11 +11,14 @@ from eventos.api.serializers import EventoSerializer, TagsEventoSerializer, Luga
 
 from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento, Boleto_AsistenteEvento, Detalles_PagoTarjeta_Evento, Detalles_OxxoPay_Evento, Donacion_Asistente_Evento
 
-from eventos.api.filterings import TagsEventoFiltering, LugarEventoFiltering, OnlineEventoFiltering, ParrafoEventoFiltering, ImagenEventoFiltering, VideEventoFiltering, BoletoEventoFiltering, Boleto_Asistente_EventoFiltering
+from eventos.api.filterings import TagsEventoFiltering, LugarEventoFiltering, OnlineEventoFiltering, ParrafoEventoFiltering, ImagenEventoFiltering, VideEventoFiltering, BoletoEventoFiltering, Boleto_Asistente_EventoFiltering, EventoFiltering, AsistenteEventoFiltering, DonacionEventoFiltering
 
 class EventoViewSet(ModelViewSet):
   serializer_class = EventoSerializer
   queryset = Evento.objects.all()
+  filter_backends = [filters.DjangoFilterBackend]
+  filterset_class = EventoFiltering
+
   
 class TagsEventoViewSet(ModelViewSet):
   serializer_class = TagsEventoSerializer
@@ -66,6 +69,8 @@ class BoletoEventoViewSet(ModelViewSet):
 class Asistente_EventoViewSet(ModelViewSet):
   serializer_class = Asistente_EventoSerializer
   queryset = Asistente_Evento.objects.all()
+  filter_backend = [filters.DjangoFilterBackend]
+  filterset_class = AsistenteEventoFiltering
 
 
 class Boleto_AsistenteEventoViewSet(ModelViewSet):
@@ -86,5 +91,7 @@ class Detalles_PagoTarjeta_EventoViewSet(ModelViewSet):
 class Donacion_Asistente_EventoViewSet(ModelViewSet):
   serializer_class = Donacion_Asistente_EventoSerializer
   queryset = Donacion_Asistente_Evento.objects.all()
+  filter_backend = [filters.DjangoFilterBackend]
+  filterset_class = DonacionEventoFiltering
 
 
