@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'contacto',
     'marketing_digital',
     'eventos',
+    'emailmarketing',
 ]
 
 MIDDLEWARE = [

@@ -12,6 +12,11 @@ from contacto.api.views import (
 )
 from eventos.api.views import EventoViewSet, TagsEventoViewSet, LugarEventoViewSet, OnlineEventoViewSet, ParrafoEventoViewSet, ImagenEventoViewSet, VideoEventoViewSet, BoletoEventoViewSet, Asistente_EventoViewSet, Boleto_AsistenteEventoViewSet, Detalles_OxxoPay_EventoViewSet, Detalles_PagoTarjeta_EventoViewSet, Donacion_Asistente_EventoViewSet
 
+from emailmarketing.api.views import (
+    BoletinViewSet, FechaHoraPublicacionBoletinViewSet, GrupoEnvioBoletinViewSet,
+    ImagenBoletinViewSet, PlantillaBoletinViewSet, LinkBoletinViewSet, SeenContactoBoletinViewSet,
+    SeenLinkBoletinViewSet, EnvioBoletinViewSet
+)
 
 router = DefaultRouter()
 router.register('cliente', ClienteViewSet, basename='cliente')
@@ -36,5 +41,14 @@ router.register('asistente-evento', Asistente_EventoViewSet, basename='asistente
 router.register('boleto-asistente-evento', Boleto_AsistenteEventoViewSet, basename='boleto_asistente_evento')
 router.register('detalles-oxxo-pay-evento', Detalles_OxxoPay_EventoViewSet, basename='detalles_oxxo_pay_evento')
 router.register('detalles-card-pay-evento',  Detalles_PagoTarjeta_EventoViewSet, basename='detalles_card_pay_evento')
-router.register('donacion_evento',  Donacion_Asistente_EventoViewSet, basename='donacion_evento')
+router.register('donacion_evento', Donacion_Asistente_EventoViewSet, basename='donacion_evento')
+router.register('boletin', BoletinViewSet, basename='boletin')
+router.register('fecha-publicacion-boletin', FechaHoraPublicacionBoletinViewSet, basename='fecha_publicacion_boletin')
+router.register('grupo-envio-boletin', GrupoEnvioBoletinViewSet, basename='grupo_envio_boletin')
+router.register('platilla-boletin', PlantillaBoletinViewSet, basename='platilla_boletin')
+router.register('imagen-boletin', ImagenBoletinViewSet, basename='imagen_boletin')
+router.register('link-boletin', LinkBoletinViewSet, basename='link_boletin')
+router.register('seen-contacto-boletin', SeenContactoBoletinViewSet, basename='seen_contacto_boletin')
+router.register('seen-contacto-link', SeenLinkBoletinViewSet, basename='seen_contacto_link')
+router.register('envio-boletin-exitoso', EnvioBoletinViewSet, basename="envio_boletin_exitoso" )
 urlpatterns = router.urls
