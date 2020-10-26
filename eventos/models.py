@@ -13,14 +13,19 @@ class Evento(models.Model):
   fecha_hora_inicio = models.DateTimeField()
   fecha_hora_fin = models.DateTimeField()
   zona_horaria = models.CharField(max_length=100)
-  directorio_imagen = models.CharField(max_length=2000)
-  nombre_imagen = models.CharField(max_length=500)
+  directorio_imagen = models.CharField(max_length=10)
   resumen = models.CharField(max_length=1000)
 
   estatus = models.CharField(max_length = 50)
 
   def __str__(self):
     return str(self.id_cuenta) + " - " + self.nombre
+
+class ImagenPrincipal(models.Model):
+  cliente = models.CharField(max_length=10)
+  cuenta = models.CharField(max_length=10)
+  name = models.CharField(max_length=500)
+
 
 
 class Tags_Evento(models.Model):
@@ -62,13 +67,13 @@ class Parrafo_Evento(models.Model):
     return self.id_evento + " - " + self.parrafo
 
 class Imagen_Evento(models.Model):
+  
   id_evento = models.ForeignKey(Evento, related_name="imagen_evento",on_delete=models.CASCADE)
-  directorio_imagen = models.CharField(max_length=1000)
   nombre_imagen = models.CharField(max_length=500)
   posicion = models.IntegerField()
 
   def __str__(self):
-    return self.id_evento + " - " + self.directorio_imagen
+    return self.id_evento + " - " + self.nombre_imagen
 
 class Video_Evento(models.Model):
   id_evento = models.ForeignKey(Evento, related_name="video_evento",on_delete=models.CASCADE)

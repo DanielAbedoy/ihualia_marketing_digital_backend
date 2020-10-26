@@ -10,7 +10,7 @@ from contacto.api.views import (
     CampoExtra_GrupoViewSet,
     Campo_ContactoViewSet
 )
-from eventos.api.views import EventoViewSet, TagsEventoViewSet, LugarEventoViewSet, OnlineEventoViewSet, ParrafoEventoViewSet, ImagenEventoViewSet, VideoEventoViewSet, BoletoEventoViewSet, Asistente_EventoViewSet, Boleto_AsistenteEventoViewSet, Detalles_OxxoPay_EventoViewSet, Detalles_PagoTarjeta_EventoViewSet, Donacion_Asistente_EventoViewSet
+from eventos.api.views import EventoViewSet, TagsEventoViewSet, LugarEventoViewSet, OnlineEventoViewSet, ParrafoEventoViewSet, ImagenEventoViewSet, VideoEventoViewSet, BoletoEventoViewSet, Asistente_EventoViewSet, Boleto_AsistenteEventoViewSet, Detalles_OxxoPay_EventoViewSet, Detalles_PagoTarjeta_EventoViewSet, Donacion_Asistente_EventoViewSet, ImagenPrincipalViewSet
 
 from emailmarketing.api.views import (
     BoletinViewSet, FechaHoraPublicacionBoletinViewSet, GrupoEnvioBoletinViewSet,
@@ -30,6 +30,7 @@ router.register('campo-extra', CampoExtraViewSet, basename='campo_extra')
 router.register('campo-extra-grupo', CampoExtra_GrupoViewSet, basename='campoextra_grupo')
 router.register('campo-contacto', Campo_ContactoViewSet, basename='campo_contacto')
 router.register('evento', EventoViewSet, basename='evento')
+router.register('imagen-ev', ImagenPrincipalViewSet, basename='imagen_p_evento')
 router.register('tags-evento', TagsEventoViewSet, basename='tag_evento')
 router.register('lugar-evento',LugarEventoViewSet,basename='lugar_evento')
 router.register('online-evento',OnlineEventoViewSet,basename='online_evento')

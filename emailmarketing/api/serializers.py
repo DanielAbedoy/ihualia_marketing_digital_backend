@@ -8,7 +8,23 @@ from emailmarketing.models import (
 
 from contacto.api.serializers import ContactoSerializar
 
+class LinkBoletinSerializer(serializers.ModelSerializer):
+  
+  vistos = serializers.StringRelatedField(many=True, required=False)
+  
+  class Meta:
+    model = LinkBoletin
+    fields = '__all__'
+
+
 class BoletinSerializer(serializers.ModelSerializer):
+
+  envios = serializers.StringRelatedField(many=True, required=False)
+  fecha_programado = serializers.StringRelatedField(many=True, required=False)
+  #links = serializers.StringRelatedField(many=True, required=False)
+  links = LinkBoletinSerializer(many=True, read_only=True)
+  vistos_boletin = serializers.StringRelatedField(many=True, required=False)
+
 
   class Meta:
     model = Boletin
@@ -43,12 +59,6 @@ class ImagenBoletinSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = ImagenBoletin
-    fields = '__all__'
-
-class LinkBoletinSerializer(serializers.ModelSerializer):
-
-  class Meta:
-    model = LinkBoletin
     fields = '__all__'
 
 

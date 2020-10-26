@@ -33,7 +33,7 @@ class Contacto(models.Model):
 ##Modelo para la relacion entre el grupo y el contacto
 class Grupo_Contacto(models.Model):
     contacto = models.ForeignKey(Contacto,on_delete=models.CASCADE,default='', related_name='contacto_grupo')
-    grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE,default='', related_name='grupo_contacto')
+    grupo = models.ForeignKey(Grupo, on_delete=models.CASCADE,default='', related_name='contactos')
     class Meta:
         ordering = ['grupo']
     def __str__(self):
@@ -65,7 +65,7 @@ class CampoExtra_Grupo(models.Model):
     
 class Campo_Contacto(models.Model):
      
-    contacto = models.ForeignKey(Contacto, on_delete=models.CASCADE)
+    contacto = models.ForeignKey(Contacto, related_name="campos_extra", on_delete=models.CASCADE)
     campo = models.ForeignKey(CampoExtra, on_delete=models.CASCADE)
     valor = models.CharField(max_length=70)
     
@@ -73,4 +73,5 @@ class Campo_Contacto(models.Model):
         ordering = ['contacto']
 
     def __str__(self):
-         return '%s - %s - %s' % (self.contacto, self.campo, self.valor)
+        objeto = {"campo": self.campo.__str__(), "valor": self.valor }
+        return (json.dumps(objeto))

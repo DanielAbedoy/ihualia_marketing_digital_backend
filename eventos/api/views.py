@@ -7,9 +7,9 @@ from rest_framework.response import Response
 from rest_framework import status
 import sys
 
-from eventos.api.serializers import EventoSerializer, TagsEventoSerializer, LugarEventoSerializer, OnlineEventoSerializer, ParrafoEventoSerializer, VideoEventoSerializer, ImagenEventoSerializer, BoletoEventoSerializer, Asistente_EventoSerializer, Boleto_AsistenteEventoSerializer, Detalles_OxxoPay_EventoSerializer, Detalles_PagoTarjeta_EventoSerializer, Donacion_Asistente_EventoSerializer
+from eventos.api.serializers import EventoSerializer, TagsEventoSerializer, LugarEventoSerializer, OnlineEventoSerializer, ParrafoEventoSerializer, VideoEventoSerializer, ImagenEventoSerializer, BoletoEventoSerializer, Asistente_EventoSerializer, Boleto_AsistenteEventoSerializer, Detalles_OxxoPay_EventoSerializer, Detalles_PagoTarjeta_EventoSerializer, Donacion_Asistente_EventoSerializer, ImagenPrincipalSerializer
 
-from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento, Boleto_AsistenteEvento, Detalles_PagoTarjeta_Evento, Detalles_OxxoPay_Evento, Donacion_Asistente_Evento
+from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento, Boleto_AsistenteEvento, Detalles_PagoTarjeta_Evento, Detalles_OxxoPay_Evento, Donacion_Asistente_Evento, ImagenPrincipal
 
 from eventos.api.filterings import TagsEventoFiltering, LugarEventoFiltering, OnlineEventoFiltering, ParrafoEventoFiltering, ImagenEventoFiltering, VideEventoFiltering, BoletoEventoFiltering, Boleto_Asistente_EventoFiltering, EventoFiltering, AsistenteEventoFiltering, DonacionEventoFiltering
 
@@ -95,3 +95,6 @@ class Donacion_Asistente_EventoViewSet(ModelViewSet):
   filterset_class = DonacionEventoFiltering
 
 
+class ImagenPrincipalViewSet(ModelViewSet):
+  serializer_class = ImagenPrincipalSerializer
+  queryset = ImagenPrincipal.objects.all()

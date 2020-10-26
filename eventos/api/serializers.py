@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento,Boleto_AsistenteEvento, Detalles_OxxoPay_Evento, Detalles_PagoTarjeta_Evento, Donacion_Asistente_Evento
+from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento,Boleto_AsistenteEvento, Detalles_OxxoPay_Evento, Detalles_PagoTarjeta_Evento, Donacion_Asistente_Evento, ImagenPrincipal
 
 class EventoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -66,4 +66,11 @@ class Detalles_PagoTarjeta_EventoSerializer(serializers.ModelSerializer):
 class Donacion_Asistente_EventoSerializer(serializers.ModelSerializer):
   class Meta:
     model = Donacion_Asistente_Evento
+    fields = '__all__'
+
+
+class ImagenPrincipalSerializer(serializers.ModelSerializer):
+
+  class Meta:
+    model = ImagenPrincipal
     fields = '__all__'

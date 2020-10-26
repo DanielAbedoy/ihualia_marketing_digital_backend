@@ -8,6 +8,7 @@ from marketing.api.serializers import CuentaSerializer
 
 ##Grupo
 class GrupoSerializer(serializers.ModelSerializer):
+
     cuenta = CuentaSerializer(many=False,read_only=True,required=False)
     class Meta:
         model = Grupo
@@ -19,6 +20,8 @@ class GrupoPostSerializer(serializers.ModelSerializer):
 
 #Cuenta
 class ContactoSerializar(serializers.ModelSerializer):
+    campos_extra = serializers.StringRelatedField(many=True, required=False)
+
     class Meta:
         model = Contacto
         fields = '__all__'
