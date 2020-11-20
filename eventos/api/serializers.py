@@ -1,11 +1,7 @@
 from rest_framework import serializers
 
-from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Parrafo_Evento, Imagen_Evento, Video_Evento, Boleto_Evento, Asistente_Evento,Boleto_AsistenteEvento, Detalles_OxxoPay_Evento, Detalles_PagoTarjeta_Evento, Donacion_Asistente_Evento, ImagenPrincipal
+from eventos.models import Evento, Tags_Evento, Lugar_Evento, Online_Evento, Componente, Boleto_Evento, Asistente_Evento,Boleto_AsistenteEvento, Detalles_OxxoPay_Evento, Detalles_PagoTarjeta_Evento, Donacion_Asistente_Evento, ImagenPrincipal
 
-class EventoSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Evento
-    fields = '__all__'
 
 class TagsEventoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -22,30 +18,18 @@ class OnlineEventoSerializer(serializers.ModelSerializer):
     model = Online_Evento
     fields = '__all__'
 
-class ParrafoEventoSerializer(serializers.ModelSerializer):
+class ComponenteSerializer(serializers.ModelSerializer):
   class Meta:
-    model = Parrafo_Evento
-    fields = '__all__'
-
-class ImagenEventoSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Imagen_Evento
-    fields = '__all__'
-
-class VideoEventoSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Video_Evento
+    model = Componente
     fields = '__all__'
 
 class BoletoEventoSerializer(serializers.ModelSerializer):
+
+  adquiridos = serializers.StringRelatedField(many=True, required=False)
+
   class Meta:
     model = Boleto_Evento
     fields = '__all__'
-
-class Asistente_EventoSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Asistente_Evento
-    fields= '__all__'
 
 class Boleto_AsistenteEventoSerializer(serializers.ModelSerializer):
   class Meta:
@@ -73,4 +57,32 @@ class ImagenPrincipalSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = ImagenPrincipal
+    fields = '__all__'
+
+
+
+class Asistente_EventoSerializer(serializers.ModelSerializer):
+
+  donacion = Donacion_Asistente_EventoSerializer(required=False, many=True)
+  articulos = serializers.StringRelatedField(many=True, required=False)
+
+
+  class Meta:
+    model = Asistente_Evento
+    fields= '__all__'
+
+
+
+
+class EventoSerializer(serializers.ModelSerializer):
+
+  etiquetas = TagsEventoSerializer(required=False, many=True)
+  lugar = LugarEventoSerializer(required=False, many=True)
+  sitio = OnlineEventoSerializer(required=False, many=True)
+  componentes = ComponenteSerializer(required=False, many=True)
+  boletos = BoletoEventoSerializer(required=False, many=True)
+  asistentes = Asistente_EventoSerializer(required=False, many=True)
+
+  class Meta:
+    model = Evento
     fields = '__all__'

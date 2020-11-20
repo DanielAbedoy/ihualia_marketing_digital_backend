@@ -1,23 +1,33 @@
 from rest_framework import serializers
 
-from marketing.models import Usuario, Cuenta, Usuario_Cuenta, Cliente
+from marketing.models import Usuario, Cuenta, Cliente, CuentaUsuario
 
-class ClienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cliente
-        fields = '__all__'
 
 class UsuarioSerializar(serializers.ModelSerializer):
+
     class Meta:
         model = Usuario
         fields = '__all__'
+
 
 class CuentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuenta
         fields = '__all__'
+        
 
-class Usuario_Cuenta_Serializer(serializers.ModelSerializer):
+class ClienteSerializer(serializers.ModelSerializer):
+
+    usuarios = UsuarioSerializar(many=True, required=False)
+    cuentas = CuentaSerializer(many=True, required=False)
     class Meta:
-        model = Usuario_Cuenta
+        model = Cliente
         fields = '__all__'
+
+class CuentaUsuarioSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CuentaUsuario
+        fields = ("usuario","cuenta","tipo")
+
+

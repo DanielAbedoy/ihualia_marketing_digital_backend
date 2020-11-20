@@ -1,16 +1,14 @@
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 
-from marketing.api.views import UsuarioViewSet, CuentaViewSet, ClienteViewSet, Usuario_Cuenta_ViewSet
+from marketing.api.views import UsuarioViewSet, CuentaViewSet, ClienteViewSet,CuentaUsuarioViewSet
 from contacto.api.views import (
     GrupoViewSet,
     ContactoViewSet,
-    GrupoContactoViewSet,
     CampoExtraViewSet,
-    CampoExtra_GrupoViewSet,
     Campo_ContactoViewSet
 )
-from eventos.api.views import EventoViewSet, TagsEventoViewSet, LugarEventoViewSet, OnlineEventoViewSet, ParrafoEventoViewSet, ImagenEventoViewSet, VideoEventoViewSet, BoletoEventoViewSet, Asistente_EventoViewSet, Boleto_AsistenteEventoViewSet, Detalles_OxxoPay_EventoViewSet, Detalles_PagoTarjeta_EventoViewSet, Donacion_Asistente_EventoViewSet, ImagenPrincipalViewSet
+from eventos.api.views import EventoViewSet, TagsEventoViewSet, LugarEventoViewSet, OnlineEventoViewSet, ComponenteViewSet, BoletoEventoViewSet, Asistente_EventoViewSet, Boleto_AsistenteEventoViewSet, Detalles_OxxoPay_EventoViewSet, Detalles_PagoTarjeta_EventoViewSet, Donacion_Asistente_EventoViewSet, ImagenPrincipalViewSet
 
 from emailmarketing.api.views import (
     BoletinViewSet, FechaHoraPublicacionBoletinViewSet, GrupoEnvioBoletinViewSet,
@@ -18,25 +16,28 @@ from emailmarketing.api.views import (
     SeenLinkBoletinViewSet, EnvioBoletinViewSet
 )
 
+from encuestas.api.views import ImagenViewSet, EncuestaViewSet, EncuestadoViewSet
+
 router = DefaultRouter()
 router.register('cliente', ClienteViewSet, basename='cliente')
 router.register('usuario', UsuarioViewSet, basename='usuario')
 router.register('cuenta', CuentaViewSet, basename='cuenta')
-router.register('usuario-cuenta', Usuario_Cuenta_ViewSet, basename='usuario_cuenta')
+router.register('cuentausuario', CuentaUsuarioViewSet, basename='cuentausuario')
+
+
 router.register('contacto', ContactoViewSet, basename='contacto')
 router.register('grupo', GrupoViewSet, basename='grupo')
-router.register('grupo-contacto', GrupoContactoViewSet, basename='grupo_contacto')
 router.register('campo-extra', CampoExtraViewSet, basename='campo_extra')
-router.register('campo-extra-grupo', CampoExtra_GrupoViewSet, basename='campoextra_grupo')
 router.register('campo-contacto', Campo_ContactoViewSet, basename='campo_contacto')
+
+
 router.register('evento', EventoViewSet, basename='evento')
 router.register('imagen-ev', ImagenPrincipalViewSet, basename='imagen_p_evento')
 router.register('tags-evento', TagsEventoViewSet, basename='tag_evento')
 router.register('lugar-evento',LugarEventoViewSet,basename='lugar_evento')
 router.register('online-evento',OnlineEventoViewSet,basename='online_evento')
-router.register('parrafo-evento',ParrafoEventoViewSet,basename='parrafo_evento')
-router.register('imagen-evento',ImagenEventoViewSet,basename='imagen_evento')
-router.register('video-evento',VideoEventoViewSet,basename='video_evento')
+router.register('componente',ComponenteViewSet,basename='componente')
+
 router.register('boleto-evento', BoletoEventoViewSet, basename='boleeto_evento')
 router.register('asistente-evento', Asistente_EventoViewSet, basename='asistente_evento')
 router.register('boleto-asistente-evento', Boleto_AsistenteEventoViewSet, basename='boleto_asistente_evento')
@@ -51,5 +52,9 @@ router.register('imagen-boletin', ImagenBoletinViewSet, basename='imagen_boletin
 router.register('link-boletin', LinkBoletinViewSet, basename='link_boletin')
 router.register('seen-contacto-boletin', SeenContactoBoletinViewSet, basename='seen_contacto_boletin')
 router.register('seen-contacto-link', SeenLinkBoletinViewSet, basename='seen_contacto_link')
-router.register('envio-boletin-exitoso', EnvioBoletinViewSet, basename="envio_boletin_exitoso" )
+router.register('envio-boletin-exitoso', EnvioBoletinViewSet, basename="envio_boletin_exitoso")
+
+router.register('encuesta',EncuestaViewSet, basename='encuesta')
+router.register('imagen-encuesta', ImagenViewSet, basename='imagen-encuesta')
+router.register('encuestado', EncuestadoViewSet, basename='encuestado')
 urlpatterns = router.urls

@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'marketing',
     'contacto',
-    'marketing_digital',
     'eventos',
     'emailmarketing',
+    'encuestas',
 ]
 
 MIDDLEWARE = [

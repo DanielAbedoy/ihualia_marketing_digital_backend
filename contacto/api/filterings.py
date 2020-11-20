@@ -1,7 +1,7 @@
 from django_filters import rest_framework as filters
 import django_filters
 
-from contacto.models import Grupo, Contacto, Grupo_Contacto, CampoExtra, CampoExtra_Grupo, Campo_Contacto
+from contacto.models import Grupo, Contacto, CampoExtra, Campo_Contacto
 
 
 ##Filtros del Grupo
@@ -23,22 +23,6 @@ class ContactoFiltering(filters.FilterSet):
         model = Contacto
         fields = ['nombre','correo']
 
-class Grupo_ContactoFiltering(filters.FilterSet):
-
-    contacto = django_filters.CharFilter(lookup_expr='iexact', field_name='contacto__correo')
-    grupo = django_filters.CharFilter(lookup_expr='iexact', field_name='grupo__id')
-
-    class Meta:
-        model = Grupo_Contacto
-        fields = ['contacto', 'grupo']
-
-class CampoExtra_GrupoFiltering(filters.FilterSet):
-    campo_extra = django_filters.CharFilter(lookup_expr='iexact', field_name='campo_extra__nombre')
-    grupo = django_filters.CharFilter(lookup_expr='iexact', field_name='grupo__id')
-    
-    class Meta:
-        model = CampoExtra_Grupo
-        fields = ['campo_extra', 'grupo']
 
 class Campo_ContactoFilterin(filters.FilterSet):
 

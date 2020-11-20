@@ -2,7 +2,7 @@ from django_filters import rest_framework as filters
 import django_filters
 
 
-from  eventos.models import Evento, Tags_Evento, Imagen_Evento, Video_Evento, Parrafo_Evento, Boleto_Evento, Lugar_Evento, Online_Evento, Boleto_AsistenteEvento, Asistente_Evento, Donacion_Asistente_Evento
+from  eventos.models import Evento, Tags_Evento, Boleto_Evento, Lugar_Evento, Online_Evento, Boleto_AsistenteEvento, Asistente_Evento, Donacion_Asistente_Evento
 
 class TagsEventoFiltering(filters.FilterSet):
   
@@ -24,24 +24,6 @@ class OnlineEventoFiltering(filters.FilterSet):
     model = Online_Evento
     fields = '__all__'
 
-class ParrafoEventoFiltering(filters.FilterSet):
-  id_evento = filters.CharFilter(field_name="id_evento__id", lookup_expr="iexact")
-  class Meta:
-    model = Parrafo_Evento
-    fields = '__all__'
-
-class ImagenEventoFiltering(filters.FilterSet):
-  id_evento = filters.CharFilter(field_name="id_evento__id", lookup_expr="iexact")
-  class Meta:
-    model = Imagen_Evento
-    fields = '__all__'
-
-class VideEventoFiltering(filters.FilterSet):
-  id_evento = filters.CharFilter(field_name="id_evento__id", lookup_expr="iexact")
-  class Meta:
-    model = Video_Evento
-    fields = '__all__'
-
 class BoletoEventoFiltering(filters.FilterSet):
   id_evento = filters.CharFilter(field_name="id_evento__id", lookup_expr="iexact")
   class Meta:
@@ -61,6 +43,7 @@ class Boleto_Asistente_EventoFiltering(filters.FilterSet):
 class EventoFiltering(filters.FilterSet):
 
   id_cuenta = filters.CharFilter(field_name="id_cuenta__id", lookup_expr="iexact")
+  url = filters.CharFilter(field_name="url", lookup_expr="iexact")
   class Meta:
     model= Evento
     fields="__all__"
