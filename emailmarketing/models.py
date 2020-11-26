@@ -8,54 +8,17 @@ class Boletin (models.Model):
 
   id_cuenta = models.ForeignKey(Cuenta, related_name="boletin_cuenta", on_delete=models.CASCADE)
   asunto = models.CharField(max_length=500)
-  tipo_publicacion = models.CharField(max_length=20)
-  contenido = models.TextField()
-  estatus = models.CharField(max_length=30)
+  publicacion = models.CharField(max_length=500)
+  contenido = models.TextField(blank=True)
+  estatus = models.CharField(max_length=30, blank=True)
   fecha_creado = models.DateField(auto_now=True)
 
-  def __str__(self):
-    return self.asunto + " - " + self.tipo_publicacion + " - "
-
-
-class EnvioBoletin(models.Model):
-
-  id_boletin = models.ForeignKey(Boletin, related_name="envios", on_delete=models.CASCADE)
-  ids_contactos = models.TextField()
-  ids_grupos = models.TextField()
+  grupos = models.ManyToManyField(Grupo, related_name="boletines", blank=True)
+  links = models.TextField(blank=True)
+  enviados= models.TextField(blank=True)
 
   def __str__(self):
-    objeto = {"contactos_enviados": self.ids_contactos, "grupos_enviados": self.ids_grupos}
-    return json.dumps(objeto)
-
-
-class FechaHoraPublicacionBoletin(models.Model):
-  
-  id_boletin = models.ForeignKey(Boletin,related_name="fecha_programado",on_delete=models.CASCADE)
-  fecha = models.CharField(max_length=20)
-  hora = models.CharField(max_length=10)
-  ids_grupos = models.TextField()
-
-  def __str__(self):
-    objeto = {"fecha": self.fecha, "hora": self.hora, "grupos": self.ids_grupos}
-    return json.dumps(objeto)
-
-
-class GrupoEnvioBoletin(models.Model):
-
-  id_boletin = models.ForeignKey(Boletin, related_name="boletin_grupo", on_delete=models.CASCADE)
-  id_grupo = models.ForeignKey(Grupo, related_name="grupo_boletin", on_delete=models.CASCADE)
-
-  def __str__(self):
-    return str(self.id_boletin) + " - " + str(self.id_grupo)
-
-
-class PlantillaBoletin(models.Model):
-
-  contenido = models.TextField()
-  categoria = models.CharField(max_length=100)
-
-  def __str__(self):
-    return "Plantilla: " 
+    return str(self.id)
 
 
 class ImagenBoletin(models.Model):
@@ -67,17 +30,8 @@ class ImagenBoletin(models.Model):
     return self.nombre
 
 
-class LinkBoletin(models.Model):
-
-  id_boletin = models.ForeignKey(Boletin, related_name="links",on_delete=models.CASCADE)
-  link = models.CharField(max_length=1000)
-
-  def __str__(self):
-    return self.link
-
-
 class SeenContactoBoletin(models.Model):
-  id_boletin = models.ForeignKey(Boletin, related_name="vistos_boletin", on_delete=models.CASCADE)
+  id_boletin = models.ForeignKey(Boletin, related_name="contactos_vistos", on_delete=models.CASCADE)
   id_contacto = models.ForeignKey(Contacto, related_name="contacto_seen", on_delete=models.CASCADE)
   fecha_visto = models.DateTimeField(auto_now_add=True)
   
@@ -87,7 +41,8 @@ class SeenContactoBoletin(models.Model):
 
 
 class SeenLinkBoletin(models.Model):
-  id_link = models.ForeignKey(LinkBoletin, related_name="vistos", on_delete=models.CASCADE)
+  boletin = models.ForeignKey(Boletin, related_name="links_vistos", on_delete=models.CASCADE)
+  id_link = models.CharField(max_length=10)
   id_contacto = models.ForeignKey(Contacto, related_name="contactolink_seen", on_delete=models.CASCADE)
   fecha_visto = models.DateTimeField(auto_now_add=True)
   

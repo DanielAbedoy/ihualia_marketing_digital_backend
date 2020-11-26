@@ -14,14 +14,14 @@ class ContactoSerializar(serializers.ModelSerializer):
 ##Grupo
 class GrupoSerializer(serializers.ModelSerializer):    
 
-    #contactos = ContactoSerializar(required=False, many=True)
+    contactos = ContactoSerializar(required=False, many=True)
 
     class Meta:
         model = Grupo
         fields = "__all__"
         extra_kwargs = {'campos_extra': {'required': False}}
 
-#Cuenta
+#C
 
 
 

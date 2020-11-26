@@ -48,6 +48,64 @@ class GrupoViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = GrupoFiltering
 
+    @action(detail=False, methods=["get"])
+    def contactos(self, request):
+        grupos = request.query_params.get("grupo")
+        cuenta = request.query_params.get("cuenta")
+        response =[]
+
+        if cuenta != None:
+            query = Grupo.objects.filter(cuenta=cuenta)
+            serializer = GrupoSerializer(query, many=True)
+            
+            for g in serializer.data:
+                gpo = {"id":g["id"], "nombre":g["nombre"], "campos_extra":g["campos_extra"]}
+
+                contactos = []
+                for c in g["contactos"]:
+
+                    c_obj ={"id":c["id"] ,"nombre":c["nombre"], "correo":c["correo"] }
+                    querysetCampos = Campo_Contacto.objects.filter(contacto=c["id"])
+                    serializerCampo = Campo_ContactoSerializer(querysetCampos, many=True)
+
+                    for campo in serializerCampo.data:
+                        c_obj[campo["campo"]] = campo["valor"]
+
+                    contactos.append(c_obj)
+                gpo["contactos"] = contactos
+                response.append(gpo)
+
+        else:
+            for g in grupos:
+                try:
+                    query = Grupo.objects.get(id=g)
+                    serializer = GrupoSerializer(query)
+                    
+                    d = serializer.data
+                    gpo = {"id":d["id"], "nombre":d["nombre"], "campos_extra":d["campos_extra"]}
+
+                    contactos =[]
+                    for c in d["contactos"]:
+
+                        c_obj ={"id":c["id"] ,"nombre":c["nombre"], "correo":c["correo"] }
+                        querysetCampos = Campo_Contacto.objects.filter(contacto=c["id"])
+                        serializerCampo = Campo_ContactoSerializer(querysetCampos, many=True)
+
+                        for campo in serializerCampo.data:
+                            c_obj[campo["campo"]] = campo["valor"]
+
+                        contactos.append(c_obj)
+                    gpo["contactos"] = contactos
+                    response.append(gpo)
+                    
+                except:
+                    pass
+
+
+
+        return Response(response)
+
+
 
 #Contacto
 class ContactoViewSet(viewsets.ModelViewSet):

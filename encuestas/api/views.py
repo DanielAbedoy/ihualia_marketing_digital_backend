@@ -41,7 +41,7 @@ class EncuestaViewSet(ModelViewSet):
     serializer = EncuestaSerializer(queryset)
 
     e = serializer.data
-    resp = {"id":e["id"], "nombre":e["nombre"], "presentacion":e["presentacion"], "instrucciones":e["instrucciones"],"imagen":e["imagen"],"anonima":e["anonima"],"ponderacion":e["ponderacion"],"paginacion":e["paginacion"], "preguntas_json":e["preguntas_json"],"despedida":e["despedida"],"estatus":e["estatus"]}
+    resp = {"id":e["id"], "nombre":e["nombre"], "presentacion":e["presentacion"], "instrucciones":e["instrucciones"],"imagen":e["imagen"],"anonima":e["anonima"],"ponderacion":e["ponderacion"],"paginacion":e["paginacion"], "preguntas_json":e["preguntas_json"],"despedida":e["despedida"],"estatus":e["estatus"],"url":e["url"]}
     return Response(resp)
 
 
