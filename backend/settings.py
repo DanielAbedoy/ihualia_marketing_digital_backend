@@ -22,6 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '2fgl$ej2@cl!tf7r%w%3x4loki*+k*p&#$1_!9%dbw9t13gue9'
 
+SECRET_REFRESH_KEY = "camiar_aqui-lapaswors"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'eventos',
     'emailmarketing',
     'encuestas',
+    'newsletter_auth',
 ]
 
 MIDDLEWARE = [
@@ -133,17 +136,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+CORS_ALLOW_CREDENTIALS = True
 ##Para que accedan al API 
 CORS_ORIGIN_WHITELIST = 'http://localhost:3000',
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        #'rest_framework.permissions.AllowAny',
+        #'rest_framework.permissions.IsAuthenticated',
     ],
+    #'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.SessionAuthentication'],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'newsletter_auth.authentication.SafeJWTAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
@@ -154,3 +164,4 @@ REST_FRAMEWORK = {
     ),
 
 }
+

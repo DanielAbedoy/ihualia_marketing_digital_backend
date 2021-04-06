@@ -5,6 +5,7 @@ from marketing.models import Cuenta, Usuario
 
 class UsuarioFiltering(filters.FilterSet):
     correo = django_filters.CharFilter(lookup_expr='iexact')
+    id_cliente = django_filters.CharFilter(lookup_expr='iexact', field_name='id_cliente__id_cliente')
     class Meta:
         model = Usuario
         fields = '__all__'

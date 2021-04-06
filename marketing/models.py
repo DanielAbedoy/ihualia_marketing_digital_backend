@@ -6,7 +6,6 @@ import json
 class Cliente(models.Model):
     
     id_cliente = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=100)
     razon_social = models.CharField(max_length=100)
     direccion = models.CharField(max_length=250)
     telefono = models.CharField(max_length=30)
@@ -14,24 +13,26 @@ class Cliente(models.Model):
     giro = models.CharField(max_length=150)
 
     def __str__(self):
-        return self.nombre + " - " + self.razon_social + " - " + self.dominio
+        return str(self.id_cliente)
 
 
 ## Modelo del Usuario
 class Usuario(models.Model):
     
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE,related_name="usuarios")
-    correo = models.EmailField(max_length=100, primary_key=True)
+    
+    correo = models.EmailField(max_length=100, unique=True)
     usuario = models.CharField(max_length=30)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=1500)
     nombre = models.CharField(max_length=100)
     tipo = models.CharField(max_length=30) # Administrador - Colaborador
     estatus = models.CharField(max_length=30)
     imagen = models.CharField(max_length=100)
+    descripcion = models.TextField(blank=True)
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="usuarios")
 
 
     def __str__(self):
-        objeto = {"correo": self.correo,"usuario":self.usuario , "nombre": self.nombre, "tipo":self.tipo, "estatus":self.estatus, "imagen":self.imagen}
+        objeto = {"id":str(self.id),"correo": self.correo,"usuario":self.usuario , "nombre": self.nombre, "tipo":self.tipo, "estatus":self.estatus, "imagen":self.imagen, "descripcion": self.descripcion}
         return json.dumps(objeto)
 
 
@@ -46,7 +47,7 @@ class Cuenta(models.Model):
         ordering = ['id_cliente']
 
     def __str__(self):
-        objeto = {"nombre": self.nombre, "estatus":self.estatus}
+        objeto = {"id":str(self.id),"nombre": self.nombre, "estatus": self.estatus}
         return json.dumps(objeto)
 
 
@@ -57,6 +58,5 @@ class CuentaUsuario(models.Model):
     tipo = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.tipo
-        
-
+        obj = {"cuenta":self.cuenta.__str__(), "usuario":self.usuario.__str__(),"tipo":self.tipo}
+        return json.dumps(obj)
